@@ -45,8 +45,8 @@ User Goal:
 
 ----------------------------
 
-️ SWOT ANALYSIS
-
+️ 
+SWOT ANALYSIS
  {c1}
 - Strengths: Strong brand presence, large customer base
 - Weaknesses: High operational costs
