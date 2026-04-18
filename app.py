@@ -45,7 +45,7 @@ User Goal:
 
 ----------------------------
 
-1️⃣ SWOT ANALYSIS
+️ SWOT ANALYSIS
 
  {c1}
 - Strengths: Strong brand presence, large customer base
