@@ -1,5 +1,4 @@
-﻿import streamlit as st
-from openai import OpenAI
+import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import re
@@ -7,15 +6,12 @@ import re
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 
-# 🔐 OpenAI client
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-
 # 🌐 Page config
 st.set_page_config(page_title="AI Competitor Analysis Tool", layout="wide")
 
 # 🏷️ Title
-st.title("📊 AI Competitor Analysis Tool")
-st.markdown("Generate deep competitor insights with charts & PDF reports")
+st.title("📊 AI Competitor Analysis Tool (Free Version)")
+st.markdown("Generate competitor insights with charts & PDF (No API needed)")
 
 # 📥 Inputs
 col1, col2 = st.columns(2)
@@ -31,47 +27,82 @@ industry = st.selectbox(
     ["Food Delivery", "E-commerce", "SaaS", "Fintech", "EdTech", "Other"]
 )
 
-# 🧠 Extra Context (VERY IMPORTANT)
+# 🧠 Context
 context = st.text_area(
     "Extra context or goal",
     placeholder="Example: I want to start a similar business and understand strategy gaps"
 )
 
-# 🤖 AI Function
+# 🤖 FREE ANALYSIS FUNCTION
 def generate_report(c1, c2, industry, context):
-    prompt = f"""
-    Act as a top-tier management consultant.
+    return f"Some structured report..."
+📊 COMPETITOR ANALYSIS REPORT
 
-    Compare {c1} vs {c2} in the {industry} industry.
+{c1} vs {c2} ({industry})
 
-    User goal:
-    {context}
+🎯 User Goal:
+{context}
 
-    Provide:
+----------------------------
 
-    1. SWOT Analysis (table format)
-    2. Business Model comparison
-    3. Market Share (%) with estimates
-    4. Growth comparison
-    5. Pricing strategy
-    6. Customer segments
-    7. Key risks
-    8. Strategic recommendations
+1️⃣ SWOT ANALYSIS
 
-    IMPORTANT:
-    - Use structured format
-    - Add numbers and percentages
-    """
+🔹 {c1}
+- Strengths: Strong brand presence, large customer base
+- Weaknesses: High operational costs
+- Opportunities: Expansion into new markets, partnerships
+- Threats: Increasing competition, price wars
 
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[{"role": "user", "content": prompt}]
-    )
+🔹 {c2}
+- Strengths: Efficient logistics, competitive pricing
+- Weaknesses: Lower brand recall in some regions
+- Opportunities: Market penetration, cost optimization
+- Threats: Customer churn, margin pressure
 
-    return response.choices[0].message.content
+----------------------------
+
+2️⃣ BUSINESS MODEL
+- {c1}: Commission-based + advertising revenue
+- {c2}: Delivery fees + subscription model
+
+----------------------------
+
+3️⃣ MARKET SHARE
+- {c1}: 55%
+- {c2}: 45%
+
+----------------------------
+
+4️⃣ PRICING STRATEGY
+- {c1}: Premium pricing approach
+- {c2}: Competitive pricing approach
+
+----------------------------
+
+5️⃣ CUSTOMER SEGMENTS
+- Urban users
+- Young professionals
+- Students
+
+----------------------------
+
+6️⃣ KEY RISKS
+- Intense competition
+- Profitability challenges
+
+----------------------------
+
+7️⃣ STRATEGIC RECOMMENDATION
+
+Based on your goal:
+👉 Focus on differentiation, pricing strategy, and improving customer experience.
+
+"""
+
+    return report
 
 
-# 📊 Extract numbers for chart
+# 📊 Extract data for chart
 def extract_data(text):
     nums = re.findall(r'\d+%', text)
     if len(nums) >= 2:
@@ -99,12 +130,11 @@ def create_pdf(text):
         return f.read()
 
 
-# 🚀 Button Action
+# 🚀 Button
 if st.button("🔍 Analyze"):
     if company1 and company2:
 
-        with st.spinner("Generating AI analysis..."):
-            report = generate_report(company1, company2, industry, context)
+        report = generate_report(company1, company2, industry, context)
 
         st.success("Analysis Complete!")
         st.divider()
@@ -112,7 +142,7 @@ if st.button("🔍 Analyze"):
         # 📄 Show report
         st.markdown(report)
 
-        # 📊 Visualization
+        # 📊 Chart
         ms1, ms2 = extract_data(report)
 
         data = pd.DataFrame({
@@ -127,14 +157,14 @@ if st.button("🔍 Analyze"):
         st.subheader("📊 Market Share Visualization")
         st.pyplot(fig)
 
-        # 📥 Text download
+        # 📥 Download text
         st.download_button(
             "📥 Download Text Report",
             report,
             file_name="analysis.txt"
         )
 
-        # 📥 PDF download
+        # 📥 Download PDF
         pdf = create_pdf(report)
 
         st.download_button(
@@ -145,3 +175,4 @@ if st.button("🔍 Analyze"):
 
     else:
         st.error("Please enter both company names")
+  
