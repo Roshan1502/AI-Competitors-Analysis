@@ -40,20 +40,20 @@ def generate_report(c1, c2, industry, context):
 
 {c1} vs {c2} ({industry})
 
-🎯 User Goal:
+User Goal:
 {context}
 
 ----------------------------
 
 1️⃣ SWOT ANALYSIS
 
-🔹 {c1}
+ {c1}
 - Strengths: Strong brand presence, large customer base
 - Weaknesses: High operational costs
 - Opportunities: Expansion into new markets, partnerships
 - Threats: Increasing competition, price wars
 
-🔹 {c2}
+ {c2}
 - Strengths: Efficient logistics, competitive pricing
 - Weaknesses: Lower brand recall in some regions
 - Opportunities: Market penetration, cost optimization
@@ -61,41 +61,40 @@ def generate_report(c1, c2, industry, context):
 
 ----------------------------
 
-2️⃣ BUSINESS MODEL
+️ BUSINESS MODEL
 - {c1}: Commission-based + advertising revenue
 - {c2}: Delivery fees + subscription model
 
 ----------------------------
-
-3️⃣ MARKET SHARE
+️ MARKET SHARE
 - {c1}: 55%
 - {c2}: 45%
 
 ----------------------------
 
-4️⃣ PRICING STRATEGY
+️ PRICING STRATEGY
 - {c1}: Premium pricing approach
 - {c2}: Competitive pricing approach
 
 ----------------------------
 
-5️⃣ CUSTOMER SEGMENTS
+️ CUSTOMER SEGMENTS
 - Urban users
 - Young professionals
 - Students
 
 ----------------------------
 
-6️⃣ KEY RISKS
+️ KEY RISKS
 - Intense competition
 - Profitability challenges
 
 ----------------------------
 
-7️⃣ STRATEGIC RECOMMENDATION
+️ STRATEGIC RECOMMENDATION
 
 Based on your goal:
-👉 Focus on differentiation, pricing strategy, and improving customer experience.
+ Focus on differentiation, pricing strategy, and improving customer experience.
 
 """
 
@@ -130,7 +129,7 @@ def create_pdf(text):
         return f.read()
 
 
-# 🚀 Button
+# Button
 if st.button("🔍 Analyze"):
     if company1 and company2:
 
