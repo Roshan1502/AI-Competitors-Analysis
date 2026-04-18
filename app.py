@@ -6,14 +6,14 @@ import re
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 
-# 🌐 Page config
+# Page config
 st.set_page_config(page_title="AI Competitor Analysis Tool", layout="wide")
 
-# 🏷️ Title
-st.title("📊 AI Competitor Analysis Tool (Free Version)")
-st.markdown("Generate competitor insights with charts & PDF (No API needed)")
+# Title
+st.title("AI Competitor Analysis Tool (Free Version)")
+st.markdown("Generate competitor insights with charts and PDF (No API needed)")
 
-# 📥 Inputs
+# Inputs
 col1, col2 = st.columns(2)
 
 with col1:
@@ -27,33 +27,32 @@ industry = st.selectbox(
     ["Food Delivery", "E-commerce", "SaaS", "Fintech", "EdTech", "Other"]
 )
 
-# 🧠 Context
 context = st.text_area(
     "Extra context or goal",
     placeholder="Example: I want to start a similar business and understand strategy gaps"
 )
 
-# 🤖 FREE ANALYSIS FUNCTION
+# Free report generator
 def generate_report(c1, c2, industry, context):
-    return f"Some structured report..."
-# 📊 COMPETITOR ANALYSIS REPORT
+    report = f"""
+COMPETITOR ANALYSIS REPORT
 
 {c1} vs {c2} ({industry})
 
-User Goal:
+# User Goal:
 {context}
 
 ----------------------------
 
-️ 
-SWOT ANALYSIS
- {c1}
+# SWOT ANALYSIS
+
+{c1}
 - Strengths: Strong brand presence, large customer base
 - Weaknesses: High operational costs
 - Opportunities: Expansion into new markets, partnerships
 - Threats: Increasing competition, price wars
 
- {c2}
+{c2}
 - Strengths: Efficient logistics, competitive pricing
 - Weaknesses: Lower brand recall in some regions
 - Opportunities: Market penetration, cost optimization
@@ -61,55 +60,54 @@ SWOT ANALYSIS
 
 ----------------------------
 
-️ BUSINESS MODEL
-- {c1}: Commission-based + advertising revenue
-- {c2}: Delivery fees + subscription model
+BUSINESS MODEL
+- {c1}: Commission-based and advertising revenue
+- {c2}: Delivery fees and subscription model
 
 ----------------------------
-️ MARKET SHARE
+
+MARKET SHARE
 - {c1}: 55%
 - {c2}: 45%
 
 ----------------------------
 
-️ PRICING STRATEGY
+PRICING STRATEGY
 - {c1}: Premium pricing approach
 - {c2}: Competitive pricing approach
 
 ----------------------------
 
-️ CUSTOMER SEGMENTS
+CUSTOMER SEGMENTS
 - Urban users
 - Young professionals
 - Students
 
 ----------------------------
 
-️ KEY RISKS
+KEY RISKS
 - Intense competition
 - Profitability challenges
 
 ----------------------------
 
-️ STRATEGIC RECOMMENDATION
+STRATEGIC RECOMMENDATION
 
 Based on your goal:
- Focus on differentiation, pricing strategy, and improving customer experience.
-
+Focus on differentiation, pricing strategy, and improving customer experience.
 """
-
     return report
 
 
-# 📊 Extract data for chart
+# Extract data for chart
 def extract_data(text):
     nums = re.findall(r'\d+%', text)
     if len(nums) >= 2:
-        return int(nums[0].replace('%','')), int(nums[1].replace('%',''))
+        return int(nums[0].replace('%', '')), int(nums[1].replace('%', ''))
     return 50, 50
 
 
-# 📄 PDF Generator
+# PDF generator
 def create_pdf(text):
     doc = SimpleDocTemplate("report.pdf")
     styles = getSampleStyleSheet()
@@ -129,19 +127,18 @@ def create_pdf(text):
         return f.read()
 
 
-# Button
-if st.button("🔍 Analyze"):
+# Button action
+if st.button("Analyze"):
     if company1 and company2:
 
         report = generate_report(company1, company2, industry, context)
 
-        st.success("Analysis Complete!")
+        st.success("Analysis Complete")
         st.divider()
 
-        # 📄 Show report
         st.markdown(report)
 
-        # 📊 Chart
+        # Chart
         ms1, ms2 = extract_data(report)
 
         data = pd.DataFrame({
@@ -153,25 +150,27 @@ if st.button("🔍 Analyze"):
         ax.bar(data["Company"], data["Market Share"])
         ax.set_title("Market Share Comparison")
 
-        st.subheader("📊 Market Share Visualization")
+        st.subheader("Market Share Visualization")
         st.pyplot(fig)
 
-        # 📥 Download text
+        # Download text
         st.download_button(
-            "📥 Download Text Report",
+            "Download Text Report",
             report,
             file_name="analysis.txt"
         )
 
-        # 📥 Download PDF
+        # Download PDF
         pdf = create_pdf(report)
 
         st.download_button(
-            "📄 Download PDF Report",
+            "Download PDF Report",
             pdf,
             file_name="analysis.pdf"
         )
 
     else:
         st.error("Please enter both company names")
+
+   
   
