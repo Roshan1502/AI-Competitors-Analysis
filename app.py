@@ -36,7 +36,7 @@ context = st.text_area(
 # 🤖 FREE ANALYSIS FUNCTION
 def generate_report(c1, c2, industry, context):
     return f"Some structured report..."
-📊 COMPETITOR ANALYSIS REPORT
+# 📊 COMPETITOR ANALYSIS REPORT
 
 {c1} vs {c2} ({industry})
 
